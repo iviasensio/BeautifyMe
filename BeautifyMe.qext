@@ -1,0 +1,14 @@
+{
+	"name" : "BeautifyMe",
+	"description" : "No limits cusomization for your Qlik Sense apps",
+	"preview": "BeautifyMe.png",
+	"type" : "visualization",
+	"icon" : "palette",
+	"version": "1.0",
+	"bundle": {
+        "id": "qlik-smart-bundle",
+        "name": "Qlik Smart bundle",
+        "description": "This is a set of 3rd part supported objects that will facilitate dashboard creation in Qlik Sense: An export tool, commentaries, PL reporting, smart text, smart gauge, simple Gantt, Venn, BeautifyMe. These can be used in addition to the objects found under \"Charts\".\n\nFor limitations and support conditions, see the documentation."
+    },
+	"author": "Ivan Felipe ife@qlik.com QlikTech Iberia,s.l."
+}

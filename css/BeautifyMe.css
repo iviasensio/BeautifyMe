@@ -1,0 +1,93 @@
+@font-face {
+	font-family: 'erasdust';
+    src: url('../fonts/erasdust.ttf');
+}
+@font-face {
+	font-family: 'OpenSans';
+	src: url('../fonts/OpenSans-Regular.ttf');
+}
+.BeautifyMe-tooltip {
+	position: absolute;
+	top: 0px;
+	right: 100px;
+	padding: 10px 8px;
+	will-change: top, left;
+	-webkit-box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+	-moz-box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+	box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+	visibility: hidden;
+}
+.BeautifyMe-tooltip div {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+.BeautifyMe-btn {
+	position: absolute;
+	bottom: 25px;
+	right: 3px;
+	-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	-moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	border: none;
+	display: inline-block;
+	text-align: center;
+	outline: 0;
+	-webkit-tap-highlight-color: transparent;
+	/*color: #FFF;
+	background-color: #1f7044; /* color = Excel green */
+	border-radius: 50%;
+	-webkit-transition: .2s ease-out;
+	-moz-transition: .2s ease-out;
+	-o-transition: .2s ease-out;
+	-ms-transition: .2s ease-out;
+	transition: .2s ease-out;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	padding: 0;
+	cursor: pointer;
+	background-color: #6bb33f;
+}
+.BeautifyMe-btn:hover {
+	background-color: #000000;
+	color:#ffffff;
+}
+/*.BeautifyMe-btn-find {
+	background:blueviolet;
+	color:white;
+}*/
+
+.BeautifyMe-btn-find {
+	/*box-shadow: 2px 7px 5px rgba(0,0,0,0.3), 0px -4px 10px rgba(255,255,255,0.3);*/
+	visibility: visible;
+}	
+/*.BeautifyMe-btn i{
+	line-height: 25px;
+	font-size: 21px;
+}*/
+
+.BeautifyMe-btn.fab {
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
+	z-index: 1;
+	width: 55.5px;
+	height: 55.5px;
+	line-height: 55.5px;
+	padding: 0;
+	border-radius: 50%;
+	transition: .3s;
+}
+
+.BeautifyMe-btn.fab:hover {
+	-webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+	-moz-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+	box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+.BeautifyMe-btn.fab i{
+	line-height: 55.5px;
+	font-size: 2.2rem;
+}
