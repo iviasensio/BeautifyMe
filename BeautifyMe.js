@@ -372,7 +372,7 @@ define( ["jquery",
 					'z-index:2;}';					
 				}
 				
-				if(s.IDsDatePicker){
+				if(s.IDsDatePicker || s.IDsType == 'qlik-date-picker'){
 					beauty_style += '.lui-icon--calendar{' +
 					    'padding-left: 8px!important;' +
 					'}' +
