@@ -382,6 +382,8 @@ define( ["jquery",
 					'.qv-object-qlik-date-picker .show-range{';
 						if(s.IDsBGColorBool){
 					    	beauty_style += 'background:' + s.IDsBGSingleColor + '!important;';
+					    }else{
+					    	beauty_style += 'background:transparent!important;';
 					    }
 						if(s.IDsFontColorBool){
 							beauty_style += 'color:' + s.IDsFontColor + '!important;';
