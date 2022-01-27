@@ -6,6 +6,7 @@ var layFP = [];
 var layTXT = [];
 var layBTN = [];
 var layTable = [];
+var layCont = [];
 var layVar = [];
 var layIDs = [];
 var layCSS = '';
@@ -22,13 +23,14 @@ define( ["jquery",
 	function ($,ng,qlik,cssContent,properties) {
 		'use strict';
 		var app = qlik.currApp();	
-
+		
 		function toggleId () {	
 			/*******General Settings********/
 			beauty_style = '.qv-object-BeautifyMe{height: 0px!important;}';
 			if(laySettings.MultiKPI){
 				beauty_style += '.qv-object-qlik-multi-kpi{height: 0px!important;}';
 			}
+					
 			beauty_style += '.qv-object *{';			
 			if(laySettings.NewFontColor){				
 				beauty_style += 'color: ' + laySettings.FontColor + ';';
@@ -279,7 +281,21 @@ define( ["jquery",
 				beauty_style += '.qv-st-data-cell-color-light {' + layTable.TableHighlightProps + '}';
 				beauty_style += '.qv-st-data-cell-color-light .qv-st-value{text-align:' + layTable.TableStyleAlign + '!important;}';
 			}
+			/************* Container ********************/
 
+			beauty_style += 'li.lui-tab.ng-scope.lui-active{';
+			if(layCont.ContBGBool){
+				beauty_style += 'background-color:' + layCont.ContBGColor + '!important;';
+			}
+			if(layCont.ContBorderBool){
+				beauty_style += 'border-bottom: 2px solid ' + layCont.ContBorderColor + ';';
+			}
+			beauty_style += '}';
+			if(layCont.ContTextBool){
+				beauty_style += 'li.lui-tab.ng-scope.lui-active span{' +
+				'color:' + layCont.ContTextColor + '!important;' +				
+				'}';
+			}
 			/************* Variable input ***************/
 
 			if(layVar.VarColorsBool){
@@ -648,6 +664,7 @@ define( ["jquery",
 				layTXT = {"XSBool":layout.txtxsbool,"XSFamily":layout.txtxlfontfamily,"XSSize":layout.txtxsfontsize,"SBool":layout.txtsbool,"SFamily":layout.txtsfontfamily,"SSize":layout.txtsfontsize,"MBool":layout.txtmbool,"MFamily":layout.txtmfontfamily,"MSize":layout.txtmfontsize,"LBool":layout.txtlbool,"LFamily":layout.txtlfontfamily,"LSize":layout.txtlfontsize,"XLBool":layout.txtxlbool,"XLFamily":layout.txtxlfontfamily,"XLSize":layout.txtxlfontsize,"XLGrow":layout.txtxlgrowbool};
 				layBTN = {"BTNTranspBool":layout.btntranspbool,"BTNFamily":layout.btnfontfamily,"BTNShadowBool":layout.btnshadowbool,"BTNTextShadowBool":layout.btntextshadowbool,"BTNHoverBool":layout.btnhoverbool,"BTNHoverColor":layout.btnhoversinglecolor.color};
 				layTable = {"TablePijamaBool":layout.TablePijamaBool,"TablePijamaBGColor":layout.TablePijamaBGColor.color,"TablePijamaFontColor":layout.TablePijamaFontColor.color,"TableHeaderColorBool":layout.TableHeaderColorBool,"TableHeaderColor":layout.TableHeaderColor.color,"TableHeaderTextColor":layout.TableHeaderTextColor.color,"TableButtonsOutBool":layout.TableButtonsOutBool,"TableHighlightBool":layout.TableHighlightBool,"TableHighlightProps":vTableHighlightProps,"TableHeaderTitleBool":layout.TableHeaderTitleBool,"TableStyleAlign":layout.TableStyleAlign};
+				layCont = {"ContBGBool":layout.ContainerBGBool,"ContBGColor":layout.ContainerBGColor.color,"ContTextBool":layout.ContainerTextBool,"ContTextColor":layout.ContainerTextColor.color,"ContBorderBool":layout.ContainerBorderBool,"ContBorderColor":layout.ContainerBorderColor.color};
 				layVar = {"VarColorsBool":layout.VarColorsBool,"VarBGColor":layout.VarBGSingleColor.color,"VarFontColor":layout.VarFontSingleColor.color};
 				layIDs = [];
 				

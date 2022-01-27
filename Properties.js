@@ -1431,6 +1431,91 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                             }
                         }
                     },
+                    //Container tabs
+                    Containers: {
+                        component: "items",
+                        label: "Containers",
+                        items: {                                                        
+                            ContainerBGBool: {
+                                ref : "ContainerBGBool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Custom background",
+                                options: [{
+                                    value: false,
+                                    label: "False"
+                                }, {
+                                    value: true,
+                                    label: "True"
+                                }],
+                                defaultValue: false                                
+                            },
+                            ContainerBGColor: {
+                                ref: "ContainerBGColor",
+                                label: "Active background",
+                                type: "object",  
+                                component: "color-picker",  
+                                defaultValue: {  
+                                    color: '#ffc000'  
+                                },
+                                show : function(data) {
+                                    return data.ContainerBGBool;
+                                }
+                            },
+                            ContainerTextBool: {
+                                ref : "ContainerTextBool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Custom text color",
+                                options: [{
+                                    value: false,
+                                    label: "False"
+                                }, {
+                                    value: true,
+                                    label: "True"
+                                }],
+                                defaultValue: false                                
+                            },
+                            ContainerTextColor: {
+                                ref: "ContainerTextColor",
+                                label: "Active text color",
+                                type: "object",  
+                                component: "color-picker",  
+                                defaultValue: {  
+                                    color: '#595959'  
+                                },
+                                show : function(data) {
+                                    return data.ContainerTextBool;
+                                }
+                            },
+                            ContainerBorderBool: {
+                                ref : "ContainerBorderBool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Custom border color",
+                                options: [{
+                                    value: false,
+                                    label: "False"
+                                }, {
+                                    value: true,
+                                    label: "True"
+                                }],
+                                defaultValue: false                                
+                            },
+                            ContainerBorderColor: {
+                                ref: "ContainerBorderColor",
+                                label: "Active border color",
+                                type: "object",  
+                                component: "color-picker",  
+                                defaultValue: {  
+                                    color: '#009845'  
+                                },
+                                show : function(data) {
+                                    return data.ContainerBorderBool;
+                                }
+                            }
+                        }
+                    },
                     //Variable input
                     VariableInputObj: {
                         component: "items",
