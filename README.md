@@ -16,9 +16,10 @@ This extension can help to customize:
 
 
 ### Look
-![alt tag](https://github.com/iviasensio/Guides/blob/master/BeautifyMe/BeautifyMe1.png?raw=true)
-![alt tag](https://github.com/iviasensio/Guides/blob/master/BeautifyMe/BeautifyMe2.png)
-![alt tag](https://github.com/iviasensio/Guides/blob/master/BeautifyMe/BeautifyMe3.png)
+![BeautifyMe1](https://user-images.githubusercontent.com/11334576/153005710-a5a366d0-5ec3-42ff-a9b3-0a15d1d9b285.png)
+![BeautifyMe2](https://user-images.githubusercontent.com/11334576/153005737-eaa78b08-6099-4d58-8365-e1b090942826.png)
+![BeautifyMe3](https://user-images.githubusercontent.com/11334576/153005757-0e398f46-d7df-450f-ab2b-c9b112e30c81.png)
+
 
 ### Version 1
 
@@ -29,3 +30,5 @@ Version 1 :
 - And also add interesting movement and dynamic effects
 
 Can be used as it is, but if preffer do not put it in production it's possible to copy the CSS generated and copy it in a supported Theme.
+
+![CSS Output](https://user-images.githubusercontent.com/11334576/153006057-07a40e76-d494-4da1-8811-be7a74c0884c.png)
