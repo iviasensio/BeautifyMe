@@ -16,9 +16,9 @@ This extension can help to customize:
 
 
 ### Look
-![alt tag](https://github.com/iviasensio/Guides/blob/master/BeautifyMe/BeaufityMe1.png)
-![alt tag](https://github.com/iviasensio/Guides/blob/master/BeautifyMe/BeaufityMe2.png)
-![alt tag](https://github.com/iviasensio/Guides/blob/master/BeautifyMe/BeaufityMe3.png)
+![alt tag](https://github.com/iviasensio/Guides/blob/master/BeautifyMe/BeautifyMe1.png)
+![alt tag](https://github.com/iviasensio/Guides/blob/master/BeautifyMe/BeautifyMe2.png)
+![alt tag](https://github.com/iviasensio/Guides/blob/master/BeautifyMe/BeautifyMe3.png)
 
 ### Version 1
 
