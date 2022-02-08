@@ -32,3 +32,9 @@ Version 1 :
 Can be used as it is, but if preffer do not put it in production it's possible to copy the CSS generated and copy it in a supported Theme.
 
 ![CSS Output](https://user-images.githubusercontent.com/11334576/153006057-07a40e76-d494-4da1-8811-be7a74c0884c.png)
+
+
+### Possible issues
+
+If some setting is not being applied, check out if there is a conflict with your theme.
+i.e.: replace the theme New Horizon for Sense Classic
