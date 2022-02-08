@@ -17,6 +17,10 @@ This extension can help to customize:
 
 ### Look
 ![alt tag](https://github.com/iviasensio/BeautifyMe/blob/main/BeautifyMe1.png)
+![alt tag](https://github.com/iviasensio/BeautifyMe/blob/master/BeautifyMe1.png)
+![alt tag]('https://github.com/iviasensio/BeautifyMe/blob/main/BeautifyMe1.png')
+![alt tag]('https://github.com/iviasensio/BeautifyMe/blob/master/BeautifyMe1.png')
+
 ![alt tag](https://github.com/iviasensio/Guides/blob/master/BeautifyMe/BeautifyMe2.png)
 ![alt tag](https://github.com/iviasensio/Guides/blob/master/BeautifyMe/BeautifyMe3.png)
 
