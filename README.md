@@ -16,7 +16,7 @@ This extension can help to customize:
 
 
 ### Look
-![alt tag](https://www.dropbox.com/s/c44wockk9obsugm/BeautifyMe1.png?dl=0)
+![alt tag](BeautifyMe.png)
 ![alt tag](https://github.com/iviasensio/Guides/blob/master/BeautifyMe/BeautifyMe2.png)
 ![alt tag](https://github.com/iviasensio/Guides/blob/master/BeautifyMe/BeautifyMe3.png)
 
