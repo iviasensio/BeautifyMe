@@ -501,6 +501,32 @@ define( ["jquery",
 						app.variable.setNumValue(layout.SheetHideVariable,vOpposite);
 					}
 				}				
+				var prefix = window.location.pathname.substr( 0, window.location.pathname.toLowerCase().lastIndexOf( "/extensions" ) + 1 );
+				var config = {
+				    host: window.location.hostname,
+				    prefix: prefix,
+				    port: window.location.port,
+				    isSecure: window.location.protocol === "https:"
+				};
+	            var vServerURLBasic = ( config.isSecure ? "https://" : "http://" ) + config.host + (config.port ? ":" + config.port : "") + config.prefix ;									
+				var vServerURL = vServerURLBasic.replace('/single/','/');
+
+				var currentLocation = String(window.location);		
+				var vCloudBool = false;
+				if(currentLocation.indexOf('qlikcloud.com') > 0){
+					vCloudBool = true;
+				}
+						
+				var appId = false;
+				if(vCloudBool){
+					appId = app.id;
+				}else{
+					if(app.model.layout.qThumbnail.qUrl){
+						appId = app.model.layout.qThumbnail.qUrl;
+						appId = appId.replace('/media/','');
+						appId = appId.substring(0,appId.indexOf('/'));				
+					}
+				}
 
 				$( ".BeautifyMe-tooltip" ).remove();
 				$('#beautyme-style').remove();
@@ -685,7 +711,27 @@ define( ["jquery",
 							if(s.IdsImgSource == 'url'){
 								vImgId = s.IdsImgUrl;
 		         			}else{
-		         				vImgId = s.IdsImgMedia;
+		         				//vImgId = s.IdsImgMedia;
+		         				var auximg = s.IdsImgMedia;
+			            		if(auximg.indexOf('api/v1') == -1){
+						        	if(auximg.indexOf('media') >= 0){
+						            	if(vServerURL.indexOf(':4848') > 0){
+						            		auximg = auximg.replace('media/','media/' + appId + '/');
+						            	}else{
+						            		if(vCloudBool){
+						            			auximg = '/api/v1/apps/' + appId + auximg.replace('media/','media/files/');
+						            		}
+						            	}
+						            }else{
+						            	if(auximg.indexOf('content/default') >= 0 && vCloudBool){
+						            		auximg = '/api/v1/apps/' + appId + '/media/files/' + auximg.replace('/content/default/','');
+						            	}
+						            }		            
+						        }else{
+						        	var oldAppId = auximg.substring(13, auximg.indexOf('/media/files/'));
+						        	auximg = auximg.replace(oldAppId,appId);			        	
+						        }
+					            vImgId = vServerURL + auximg;		
 		         			}
 						}
 						var vIdsImgPos = '';
