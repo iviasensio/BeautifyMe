@@ -118,11 +118,19 @@ define( ["jquery",
 	  				'background-position: ' + laySheet.shbgimgdir + ';' +
 	  				'}}';
 			}
-			if(laySheet.sheettitle == 'h'){
-				beauty_style += '.qv-panel-sheet .sheet-title-container{visibility:hidden;height:0}';
-			}else if(laySheet.sheettitle == 't'){
-				beauty_style += '.qv-panel-sheet .sheet-title-container{background:transparent!important;border: none!important;}';
-			}
+			switch (laySheet.sheettitle){
+         		case 'h':
+         			beauty_style += '.qv-panel-sheet .sheet-title-container{visibility:hidden;height:0}';
+         		break;
+         		case 't':
+         			beauty_style += '.qv-panel-sheet .sheet-title-container{background:transparent!important;border: none!important;}';
+         		break;
+         		case 's':
+         			if(laySheet.sheettitlecolbool){
+         				beauty_style += '.qv-panel-sheet .sheet-title-container{background:' + laySheet.sheettitlecolor + '!important;border: none!important;}';
+         			}
+         		break;
+         	}			
 
 			/******QV Object settings***********/	
 
@@ -409,8 +417,8 @@ define( ["jquery",
 				}
 			})						
 			
-			beauty_style += layCSS;
-
+			beauty_style += layCSS.replace(/\t/g, '');
+			
 			if(qlik.navigation.getMode() == 'edit'){
 
 			    $( '.qv-object, .qv-panel-sheet' ).each( function ( i, el ) {
@@ -658,7 +666,7 @@ define( ["jquery",
 				}
 				
          		laySettings = {"MultiKPI":layout.multikpibool,"FontFamily":layout.fontfamily,"NewFontColor":layout.shdefaulttextcolorbool,"FontColor":vFontColor,"TitleAlign":layout.titlealign,"TitleColor":layout.titlesinglecolor.color,"TitleFontSize":layout.TitlesFontSize};
-         		laySheet = {"shbgcolor1":vShBgColor1,"shbgcolor2":vShBgColor2,"shbgdegreedir":vShBgDegreeDir,"shbgimg":vShBgImg,"shbgimgopacity":layout.shbgimgopacity,"shbgimgdir":vShBgImgDir,"shbgimgsize":vShBgImgSize,"sheettitle":layout.sheettitle};         		
+         		laySheet = {"shbgcolor1":vShBgColor1,"shbgcolor2":vShBgColor2,"shbgdegreedir":vShBgDegreeDir,"shbgimg":vShBgImg,"shbgimgopacity":layout.shbgimgopacity,"shbgimgdir":vShBgImgDir,"shbgimgsize":vShBgImgSize,"sheettitle":layout.sheettitle,"sheettitlecolbool":layout.sheettitlecolbool,"sheettitlecolor":layout.sheettitlecolor.color};         		
          		layQV = {"QVBgColor":QVBgColor,"QVBorder":QVBorder}				
 				layFP = {"FPBool":layout.filterpanebool,"FPSettings":vFPSettings,"FPTitleSettings":vFPTitleSettings,"FPBorderBool":layout.filterborderbool,"FPIconBool":layout.filtericonbool,"FPIcon":layout.filtericon};
 				layTXT = {"XSBool":layout.txtxsbool,"XSFamily":layout.txtxlfontfamily,"XSSize":layout.txtxsfontsize,"SBool":layout.txtsbool,"SFamily":layout.txtsfontfamily,"SSize":layout.txtsfontsize,"MBool":layout.txtmbool,"MFamily":layout.txtmfontfamily,"MSize":layout.txtmfontsize,"LBool":layout.txtlbool,"LFamily":layout.txtlfontfamily,"LSize":layout.txtlfontsize,"XLBool":layout.txtxlbool,"XLFamily":layout.txtxlfontfamily,"XLSize":layout.txtxlfontsize,"XLGrow":layout.txtxlgrowbool};

@@ -715,6 +715,35 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     label: "Transparent"
                                 }],
                                 defaultValue: "s"
+                            },
+                            SheetTitleColorBool: {
+                                ref : "sheettitlecolbool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Change top tab color",
+                                options: [{
+                                    value: false,
+                                    label: "No, thanks"
+                                }, {
+                                    value: true,
+                                    label: "Yes, please"
+                                }],
+                                defaultValue: false,
+                                show : function(data) {
+                                    return data.sheettitle == 's';
+                                }                              
+                            },
+                            SheetTitleSingleColor: {
+                                ref: "sheettitlecolor",
+                                label: "Top tab color",
+                                type: "object",  
+                                component: "color-picker",  
+                                defaultValue: {  
+                                    color: '#ce8c25'  
+                                },
+                                show : function(data) {
+                                    return data.sheettitle == 's' && data.sheettitlecolbool;
+                                }
                             }
                         }
                     },
