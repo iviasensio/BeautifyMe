@@ -678,7 +678,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 ref: "shbgimgdir",
                                 defaultValue: "centerCenter",
                                 show : function(data) {
-                                    return data.shbgimgbool && !data.shbgimgsize == 'cover' && !data.shbgimgsize == '100% 100%';
+                                    return data.shbgimgbool && data.shbgimgsize != 'cover' && data.shbgimgsize != '100% 100%';
                                 }
                             },
                             SheetBackgroundImgSizePerc: {
