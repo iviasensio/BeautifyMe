@@ -14,13 +14,13 @@ var oneOpened = true;
 var editMode = '';
 var vType;
 define( ["jquery",
-		 "ng!$q",
+		 //"ng!$q",
 		 "qlik",
 		 "css!./css/BeautifyMe",
 		 "./Properties"
 		 ],
 	
-	function ($,ng,qlik,cssContent,properties) {
+	function ($,qlik,cssContent,properties) {
 		'use strict';
 		var app = qlik.currApp();	
 		
@@ -383,19 +383,26 @@ define( ["jquery",
 						'overflow-y:hidden;}';
 					}
 				}
-
+				
 				if(s.IDsOverlapHBool){
+					var vHPad = '2px';					
 					beauty_style += 'div[tid="' + s.IDsID + '"]{' +
-					'left: calc(' + s.IDsOverlapHPerc + '% + 2px)!important;' +
+					'left: calc(' + s.IDsOverlapHPerc + '% + ' + vHPad + ')!important;' +
 					'z-index:2;}';
 
 				}
 				if(s.IDsOverlapVBool){		
+					var vVPad = '2px';					
 					beauty_style += 'div[tid="' + s.IDsID + '"]{' + 
-					'top: calc(' + s.IDsOverlapVPerc + '% + 2px)!important;' +
+					'top: calc(' + s.IDsOverlapVPerc + '% + ' + vVPad + ')!important;' +
 					'z-index:2;}';					
 				}
-				
+				if(s.IDsHPadding){
+					beauty_style += 'div[tid="' + s.IDsID + '"] .qv-object{border-right:none!important;border-left:none!important;}';					
+				}
+				if(s.IDsVPadding){
+					beauty_style += 'div[tid="' + s.IDsID + '"] .qv-object{border-top:none!important;border-bottom:none!important;}';					
+				}
 				if(s.IDsDatePicker || s.IDsType == 'qlik-date-picker'){
 					beauty_style += '.lui-icon--calendar{' +
 					    'padding-left: 8px!important;' +
@@ -769,7 +776,7 @@ define( ["jquery",
 							vIdsImgSize = s.idsimgsizeperc + '%';
 						}
 					
-						var layID = {"IDsID":vObjId,"IDsType":vObjType,"IDsBGColorBool":s.IdsBGColorBool,"IDsBGSingleColor":s.IdsBGSingleColor.color,"IDsFontColorBool":s.IdsFontColorBool,"IDsFontColor":s.IdsFontSingleColor.color, "IDsImgBool":s.IdsImgBool,"IDsImg":vImgId,"IDsImgPos":vIdsImgPos,"IDsImgSize":vIdsImgSize,"IDsEffectBool":s.IdsEffectBool,"IDsEffect":s.IdsEffect,"IDsOverlapHBool":s.IdsOverlapHBool,"IDsOverlapHPerc":s.IdsMovingH,"IDsOverlapVBool":s.IdsOverlapVBool,"IDsOverlapVPerc":s.IdsMovingV,"IDsDatePicker":s.IdsAlignDatePickerBool};
+						var layID = {"IDsID":vObjId,"IDsType":vObjType,"IDsBGColorBool":s.IdsBGColorBool,"IDsBGSingleColor":s.IdsBGSingleColor.color,"IDsFontColorBool":s.IdsFontColorBool,"IDsFontColor":s.IdsFontSingleColor.color, "IDsImgBool":s.IdsImgBool,"IDsImg":vImgId,"IDsImgPos":vIdsImgPos,"IDsImgSize":vIdsImgSize,"IDsEffectBool":s.IdsEffectBool,"IDsEffect":s.IdsEffect,"IDsOverlapHBool":s.IdsOverlapHBool,"IDsOverlapHPerc":s.IdsMovingH,"IDsOverlapVBool":s.IdsOverlapVBool,"IDsOverlapVPerc":s.IdsMovingV,"IDsDatePicker":s.IdsAlignDatePickerBool,"IDsHPadding":s.IdsHPadding,"IDsVPadding":s.IdsVPadding};
 						layIDs.push(layID);
 					
 					}
@@ -791,7 +798,7 @@ define( ["jquery",
 					}
 				})		
 				var vValid = beauty_style.replace(/"/g, "'");
-				if(oneOpened || beauty_prev != beauty_style){
+				if((oneOpened || beauty_prev != beauty_style) && qlik.navigation.getMode() == 'edit'){
 					myObject.backendApi.applyPatches([
 						{
 							"qPath": "/cssoutput",
