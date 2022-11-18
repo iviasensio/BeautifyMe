@@ -42,11 +42,15 @@ define( ["jquery",
 			// Titles
 			beauty_style += '.qv-object .qv-object-title {display: inline-block;' +
     			'text-align: ' + laySettings.TitleAlign + ';' +
+    			'font-size:' + laySettings.TitleFontSize + '%!important;' +
+    			'margin-left:' + laySettings.TitlePadding + 'px;' +
     			'color:' + laySettings.TitleColor + '!important;}';
+
     		beauty_style += '.qv-inline-edit-value {' +
     			'text-align: ' + laySettings.TitleAlign + ';' +
     			'color:' + laySettings.TitleColor + ';' + 
     			'font-size:' + laySettings.TitleFontSize + '%;' +
+    			'margin-left:' + laySettings.TitlePadding + 'px;' +
     			'}';
     		beauty_style += '.qv-object .qv-object-footnote, .qv-object .qv-object-subtitle {' +
 				'text-align: ' + laySettings.TitleAlign + ';}';
@@ -144,8 +148,10 @@ define( ["jquery",
 
 			/******filter Pane ****************/
 			if(layFP.FPBool){
-				beauty_style += '.qv-collapsed-listbox{' + layFP.FPSettings + '}';
+				beauty_style += '.qv-collapsed-listbox{' + layFP.FPSettings + '}';				
 				beauty_style += '.qv-collapsed-listbox .title-wrapper .title {' + layFP.FPTitleSettings + '}';
+				beauty_style += '.qv-listbox{' + layFP.FPSettingsExt + '}';
+				beauty_style += '.qv-inline-edit-value{' + layFP.FPSettingsHead + '}';
 
 				if(layFP.FPBorderBool){
 					beauty_style += '.qv-collapsed-listbox{border:none!important;}';
@@ -281,7 +287,17 @@ define( ["jquery",
 								beauty_style += '.qv-object-pivot-table .qv-object-header{background:' + layTable.TableHeaderColor + '!important;}';
 								beauty_style += '.qv-object-table .qv-object-header{background:' + layTable.TableHeaderColor + '!important;}';
 							}
-			}			
+			}
+			if(layTable.TablesHeaderUnset){
+				beauty_style += '.qv-st-header{visibility:collapse;}';
+			}
+			if(layTable.TableBordersUnset){
+				beauty_style += 'table {border-collapse: unset;}';
+			}
+			if(layTable.TableVerticalAlignBool){
+				beauty_style += '.qv-st .qv-st-value .qv-st-value-overflow {display: flex; align-items: center;}.qv-st .qv-st-data-cell-numeric .qv-st-value-overflow{display: flex; align-items: center;}';
+			}
+			beauty_style += 'tr{border-radius: ' + layTable.TablesBordersRadius + 'px}td:first-child,th:first-child{border-radius: ' + layTable.TablesBordersRadius + 'px 0 0 ' + layTable.TablesBordersRadius + 'px;}td:last-child,th:last-child{border-radius: 0 ' + layTable.TablesBordersRadius + 'px ' + layTable.TablesBordersRadius + 'px 0;}';
 			if(layTable.TableButtonsOutBool){
 				beauty_style += '.qv-object-pivot-table .qv-pt .cell .left-meta-headers{display:none}';
 			}
@@ -337,13 +353,20 @@ define( ["jquery",
 					    'background-size: ' + s.IDsImgSize +'!important;' +
 					    'background-position: ' + s.IDsImgPos + '!important;';
 					}
-					    					
+					if(s.IDsShadow){
+						beauty_style += 'box-shadow: 5px 10px 18px #888888;';
+					}
 					beauty_style += '}'
 
 
 					if(s.IDsFontColorBool){
 						beauty_style += 'div[tid="' + s.IDsID +'"] .qv-object span{' +				
 						    'color:' + s.IDsFontColor + '!important;}';
+					}
+				}else{
+					if(s.IDsShadow){
+						beauty_style += 'div[tid="' + s.IDsID +'"] .qv-object{' +
+						'box-shadow: 5px 10px 18px #888888;}'
 					}
 				}
 				
@@ -385,17 +408,24 @@ define( ["jquery",
 				}
 				
 				if(s.IDsOverlapHBool){
-					var vHPad = '2px';					
+					var vHPad = '2px';
+					var vZIndex = 2;
+					if(s.IDsZIndex >= 0 && s.IDsZIndex <= 3){
+						vZIndex = s.IDsZIndex;						
+					}						
 					beauty_style += 'div[tid="' + s.IDsID + '"]{' +
 					'left: calc(' + s.IDsOverlapHPerc + '% + ' + vHPad + ')!important;' +
-					'z-index:2;}';
-
+					'z-index:' + vZIndex + ';}';
 				}
 				if(s.IDsOverlapVBool){		
-					var vVPad = '2px';					
+					var vVPad = '2px';
+					var vZIndex = 2;
+					if(s.IDsZIndex >= 0 && s.IDsZIndex <= 3){
+						vZIndex = s.IDsZIndex;
+					}
 					beauty_style += 'div[tid="' + s.IDsID + '"]{' + 
 					'top: calc(' + s.IDsOverlapVPerc + '% + ' + vVPad + ')!important;' +
-					'z-index:2;}';					
+					'z-index:' + vZIndex + ';}';					
 				}
 				if(s.IDsHPadding){
 					beauty_style += 'div[tid="' + s.IDsID + '"] .qv-object{border-right:none!important;border-left:none!important;}';					
@@ -595,16 +625,19 @@ define( ["jquery",
          			}
          		}
          		var vShBgImgDir = 'default';
+         		var vPadding = 0;
+         		if(layout.shbgpaddingbool){vPadding = layout.shbgimgpadding};
+				
          		if(layout.shbgimgsize != 'cover' && layout.shbgimgsize != '100% 100%'){
 	         		switch (layout.shbgimgdir){
 	         			case 'topLeft':
-	         				vShBgImgDir = '0% 0%';
+	         				vShBgImgDir = vPadding + '% 0%';
 	         				break;
 	         			case 'topCenter':
-	         				vShBgImgDir = '0% 50%';
+	         				vShBgImgDir = vPadding + '% 50%';
 	         				break;
 	         			case 'topRight':
-	         				vShBgImgDir = '0% 110%';
+	         				vShBgImgDir = vPadding + '% 110%';
 	         				break;
 	         			case 'centerLeft':
 	         				vShBgImgDir = '50% 0%';
@@ -616,13 +649,13 @@ define( ["jquery",
 	         				vShBgImgDir = '50% 110%';
 	         				break;
 	         			case 'bottomLeft':
-	         				vShBgImgDir = '100% 0%';
+	         				vShBgImgDir = 100 - vPadding + '% 0%';
 	         				break;
 	         			case 'bottomCenter':
-	         				vShBgImgDir = '100% 50%';
+	         				vShBgImgDir = 100 - vPadding + '% 50%';
 	         				break;
 	         			case 'bottomRight':
-	         				vShBgImgDir = '100% 110%';
+	         				vShBgImgDir = 100 - vPadding + '% 110%';
 	         				break; 
 	         		}
 	         	}
@@ -673,13 +706,17 @@ define( ["jquery",
 				}
 
 				var vFPSettings = '';
-				var vFPTitleSettings;
+				var vFPSettingsExt = '';
+				var vFPTitleSettings = '';
+				var vFPSettingsHead = '';
 				if(layout.filterpanebool){
 					if(layout.filterbgbool){
 						vFPSettings = 'background: ' + layout.fpbgsinglecolor.color + '!important;';
 					}
+					vFPSettingsExt = 'font-family: ' + layout.fpfontfamily +'!important;font-size:' + (layout.fpfontsize - 2) +'px!important;text-align:' + layout.fplabelalign + '!important;color:' + layout.fpsinglecolor.color + '!important;';
 					vFPSettings += 'font-family: ' + layout.fpfontfamily +'!important;';
 					vFPTitleSettings = 'font-size:' + layout.fpfontsize +'px;text-align:' + layout.fplabelalign + ';color:' + layout.fpsinglecolor.color + ';';
+					vFPSettingsHead = 'font-family: ' + layout.fpfontfamily +'!important;font-size:' + layout.fpfontsize + 'px!important;text-align:' + layout.fplabelalign + '!important;color:' + layout.fpsinglecolor.color + '!important;';
 				}		
 
 				var vTableHighlightProps = '';
@@ -698,13 +735,13 @@ define( ["jquery",
 					vTableHighlightProps += 'color: ' + layout.TableTextStyleColor.color + ';background:' + layout.TableBackgroundStyleColor.color + '!important;';					
 				}
 				
-         		laySettings = {"MultiKPI":layout.multikpibool,"FontFamily":layout.fontfamily,"NewFontColor":layout.shdefaulttextcolorbool,"FontColor":vFontColor,"TitleAlign":layout.titlealign,"TitleColor":layout.titlesinglecolor.color,"TitleFontSize":layout.TitlesFontSize};
+         		laySettings = {"MultiKPI":layout.multikpibool,"FontFamily":layout.fontfamily,"NewFontColor":layout.shdefaulttextcolorbool,"FontColor":vFontColor,"TitleAlign":layout.titlealign,"TitleColor":layout.titlesinglecolor.color,"TitleFontSize":layout.TitlesFontSize,"TitlePadding":layout.TitlesPadding};
          		laySheet = {"shbgcolor1":vShBgColor1,"shbgcolor2":vShBgColor2,"shbgdegreedir":vShBgDegreeDir,"shbgimg":vShBgImg,"shbgimgopacity":layout.shbgimgopacity,"shbgimgdir":vShBgImgDir,"shbgimgsize":vShBgImgSize,"sheettitle":layout.sheettitle,"sheettitlecolbool":layout.sheettitlecolbool,"sheettitlecolor":layout.sheettitlecolor.color};         		
          		layQV = {"QVBgColor":QVBgColor,"QVBorder":QVBorder}				
-				layFP = {"FPBool":layout.filterpanebool,"FPSettings":vFPSettings,"FPTitleSettings":vFPTitleSettings,"FPBorderBool":layout.filterborderbool,"FPIconBool":layout.filtericonbool,"FPIcon":layout.filtericon};
+				layFP = {"FPBool":layout.filterpanebool,"FPSettings":vFPSettings,"FPTitleSettings":vFPTitleSettings,"FPSettingsHead":vFPSettingsHead,"FPSettingsExt":vFPSettingsExt,"FPBorderBool":layout.filterborderbool,"FPIconBool":layout.filtericonbool,"FPIcon":layout.filtericon};
 				layTXT = {"XSBool":layout.txtxsbool,"XSFamily":layout.txtxlfontfamily,"XSSize":layout.txtxsfontsize,"SBool":layout.txtsbool,"SFamily":layout.txtsfontfamily,"SSize":layout.txtsfontsize,"MBool":layout.txtmbool,"MFamily":layout.txtmfontfamily,"MSize":layout.txtmfontsize,"LBool":layout.txtlbool,"LFamily":layout.txtlfontfamily,"LSize":layout.txtlfontsize,"XLBool":layout.txtxlbool,"XLFamily":layout.txtxlfontfamily,"XLSize":layout.txtxlfontsize,"XLGrow":layout.txtxlgrowbool};
 				layBTN = {"BTNTranspBool":layout.btntranspbool,"BTNFamily":layout.btnfontfamily,"BTNShadowBool":layout.btnshadowbool,"BTNTextShadowBool":layout.btntextshadowbool,"BTNHoverBool":layout.btnhoverbool,"BTNHoverColor":layout.btnhoversinglecolor.color};
-				layTable = {"TablePijamaBool":layout.TablePijamaBool,"TablePijamaBGColor":layout.TablePijamaBGColor.color,"TablePijamaFontColor":layout.TablePijamaFontColor.color,"TableHeaderColorBool":layout.TableHeaderColorBool,"TableHeaderColor":layout.TableHeaderColor.color,"TableHeaderTextColor":layout.TableHeaderTextColor.color,"TableButtonsOutBool":layout.TableButtonsOutBool,"TableHighlightBool":layout.TableHighlightBool,"TableHighlightProps":vTableHighlightProps,"TableHeaderTitleBool":layout.TableHeaderTitleBool,"TableStyleAlign":layout.TableStyleAlign};
+				layTable = {"TablePijamaBool":layout.TablePijamaBool,"TablePijamaBGColor":layout.TablePijamaBGColor.color,"TablePijamaFontColor":layout.TablePijamaFontColor.color,"TableHeaderColorBool":layout.TableHeaderColorBool,"TableHeaderColor":layout.TableHeaderColor.color,"TableHeaderTextColor":layout.TableHeaderTextColor.color,"TableButtonsOutBool":layout.TableButtonsOutBool,"TableHighlightBool":layout.TableHighlightBool,"TableHighlightProps":vTableHighlightProps,"TableHeaderTitleBool":layout.TableHeaderTitleBool,"TableStyleAlign":layout.TableStyleAlign,"TablesHeaderUnset":layout.TablesHeaderUnset,"TableBordersUnset":layout.TableBordersUnset,"TablesBordersRadius":layout.TablesBordersRadius,"TableVerticalAlignBool":layout.TableVerticalAlignBool};
 				layCont = {"ContBGBool":layout.ContainerBGBool,"ContBGColor":layout.ContainerBGColor.color,"ContTextBool":layout.ContainerTextBool,"ContTextColor":layout.ContainerTextColor.color,"ContBorderBool":layout.ContainerBorderBool,"ContBorderColor":layout.ContainerBorderColor.color};
 				layVar = {"VarColorsBool":layout.VarColorsBool,"VarBGColor":layout.VarBGSingleColor.color,"VarFontColor":layout.VarFontSingleColor.color};
 				layIDs = [];
@@ -776,7 +813,7 @@ define( ["jquery",
 							vIdsImgSize = s.idsimgsizeperc + '%';
 						}
 					
-						var layID = {"IDsID":vObjId,"IDsType":vObjType,"IDsBGColorBool":s.IdsBGColorBool,"IDsBGSingleColor":s.IdsBGSingleColor.color,"IDsFontColorBool":s.IdsFontColorBool,"IDsFontColor":s.IdsFontSingleColor.color, "IDsImgBool":s.IdsImgBool,"IDsImg":vImgId,"IDsImgPos":vIdsImgPos,"IDsImgSize":vIdsImgSize,"IDsEffectBool":s.IdsEffectBool,"IDsEffect":s.IdsEffect,"IDsOverlapHBool":s.IdsOverlapHBool,"IDsOverlapHPerc":s.IdsMovingH,"IDsOverlapVBool":s.IdsOverlapVBool,"IDsOverlapVPerc":s.IdsMovingV,"IDsDatePicker":s.IdsAlignDatePickerBool,"IDsHPadding":s.IdsHPadding,"IDsVPadding":s.IdsVPadding};
+						var layID = {"IDsID":vObjId,"IDsType":vObjType,"IDsBGColorBool":s.IdsBGColorBool,"IDsBGSingleColor":s.IdsBGSingleColor.color,"IDsFontColorBool":s.IdsFontColorBool,"IDsFontColor":s.IdsFontSingleColor.color, "IDsImgBool":s.IdsImgBool,"IDsImg":vImgId,"IDsImgPos":vIdsImgPos,"IDsImgSize":vIdsImgSize,"IDsShadow":s.idshadowbool,"IDsEffectBool":s.IdsEffectBool,"IDsEffect":s.IdsEffect,"IDsOverlapHBool":s.IdsOverlapHBool,"IDsOverlapHPerc":s.IdsMovingH,"IDsOverlapVBool":s.IdsOverlapVBool,"IDsOverlapVPerc":s.IdsMovingV,"IDsZIndex":s.IdsZIndex,"IDsDatePicker":s.IdsAlignDatePickerBool,"IDsHPadding":s.IdsHPadding,"IDsVPadding":s.IdsVPadding};
 						layIDs.push(layID);
 					
 					}

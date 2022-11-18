@@ -59,6 +59,9 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                         value: "unset",
                         label: "Default"
                     },{
+                        value: "Aharoni",
+                        label: "Aharoni"
+                    },{
                         value: "Arial",
                         label: "Arial"
                     }, {
@@ -263,6 +266,16 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 step: 5,
                                 defaultValue: 115
                             },
+                            TitlesPadding: {                                
+                                type: "number",
+                                component: "slider",
+                                label: "Titles padding",
+                                ref: "TitlesPadding",
+                                min: 0,
+                                max: 100,
+                                step: 5,
+                                defaultValue: 30
+                            },
                             GeneralRulesBool: {
                                 ref : "qvbgcolorbool",
                                 type : "boolean",
@@ -347,7 +360,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 component: "slider",
                                 label: "Border width",
                                 ref: "qvborderwidth",
-                                min: 1,
+                                min: 0,
                                 max: 5,
                                 step: 1,
                                 defaultValue: 1,
@@ -694,6 +707,36 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     return  data.shbgimgbool && data.shbgimgsize == 'percentage';
                                 }                               
                             },
+                            SheetBackgroundPaddingBool: {
+                                ref : "shbgpaddingbool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Add image padding",
+                                options: [{
+                                    value: false,
+                                    label: "No, thanks"
+                                }, {
+                                    value: true,
+                                    label: "Yes, please"
+                                }],
+                                defaultValue: false,
+                                show : function(data) {
+                                    return  data.shbgimgbool;
+                                } 
+                            },
+                            SheetBackgroundImgPadding: {
+                                type: "number",
+                                component: "slider",
+                                label: "Padding %",
+                                ref: "shbgimgpadding",
+                                min: 0,
+                                max: 20,
+                                step: 1,
+                                defaultValue: 0,
+                                show : function(data) {
+                                    return  data.shbgimgbool && data.shbgpaddingbool;
+                                }                               
+                            },
                             // Title bar
                             StepSheet2: {
                                 label: "",
@@ -823,10 +866,10 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 component: "slider",
                                 label: "Font size",
                                 ref: "fpfontsize",
-                                min: 12,
+                                min: 14,
                                 max: 20,
                                 step: 1,
-                                defaultValue: 13,
+                                defaultValue: 14,
                                 show : function(data) {
                                     return data.filterpanebool;
                                 }
@@ -1213,6 +1256,20 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                         component: "items",
                         label: "Tables",
                         items: {
+                            TablesHeaderUnset: {                                
+                                ref : "TablesHeaderUnset",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Delete straight table header",
+                                options: [{
+                                    value: false,
+                                    label: "False"
+                                }, {
+                                    value: true,
+                                    label: "True"
+                                }],
+                                defaultValue: false
+                            },
                             TableHeaderColorBool: {
                                 ref : "TableHeaderColorBool",
                                 type : "boolean",
@@ -1457,7 +1514,45 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 show : function(data) {
                                     return data.TableHighlightBool;
                                 }
-                            }
+                            },                            
+                            TableBordersUnset: {
+                                ref : "TableBordersUnset",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Borders collapse",
+                                options: [{
+                                    value: false,
+                                    label: "Unset"
+                                }, {
+                                    value: true,
+                                    label: "Set"
+                                }],
+                                defaultValue: true
+                            },
+                            TablesBordersRadius: {                                
+                                type: "number",
+                                component: "slider",
+                                label: "Cell border radius",
+                                ref: "TablesBordersRadius",
+                                min: 0,
+                                max: 20,
+                                step: 1,
+                                defaultValue: 0                                
+                            },
+                            TableVerticalAlignBool: {
+                                ref : "TableVerticalAlignBool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Vertical align center",
+                                options: [{
+                                    value: false,
+                                    label: "False"
+                                }, {
+                                    value: true,
+                                    label: "True"
+                                }],
+                                defaultValue: false
+                            },
                         }
                     },
                     //Container tabs
@@ -1807,6 +1902,20 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     return  data.IdsImgBool && data.idsimgsize == 'percentage' && data.ObjId.substring(data.ObjId.indexOf('#:#') + 3) != 'action-button';
                                 }                               
                             },
+                            IdsShadowBool: {
+                                ref : "idshadowbool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Add a shadow",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: false                                
+                            },
                             StepIds1: {
                                 label: "",
                                 component: "text"
@@ -1898,6 +2007,47 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 show : function(data) {
                                     return data.IdsOverlapVBool;
                                 }
+                            },
+                            IdsZIndex: {                                
+                                type: "number",
+                                component: "slider",
+                                label: "Shape Index",
+                                ref: "IdsZIndex",
+                                min: 0,
+                                max: 3,
+                                step: 1,
+                                defaultValue: 2,
+                                show : function(data) {
+                                    return data.IdsOverlapVBool || data.IdsOverlapHBool;
+                                }
+                            },
+                            IdsHPadding: {
+                                ref : "IdsHPadding",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Remove H padding",
+                                options: [{
+                                    value: false,
+                                    label: "False"
+                                }, {
+                                    value: true,
+                                    label: "True"
+                                }],
+                                defaultValue: false
+                            },
+                            IdsVPadding: {
+                                ref : "IdsVPadding",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Remove V padding",
+                                options: [{
+                                    value: false,
+                                    label: "False"
+                                }, {
+                                    value: true,
+                                    label: "True"
+                                }],
+                                defaultValue: false
                             }
                         }                        
                     },                                   
