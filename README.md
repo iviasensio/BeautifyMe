@@ -10,6 +10,7 @@ This extension can help to customize:
 - Filter Panes
 - Text Object
 - Button Object
+- KPI
 - Variable Input Object
 - Tables
 - Containers
@@ -21,7 +22,8 @@ This extension can help to customize:
 ![BeautifyMe2](https://user-images.githubusercontent.com/11334576/153909398-efad6974-01b8-4e81-a119-bb401bcbd14c.png)
 ![BeautifyMe3](https://user-images.githubusercontent.com/11334576/153909415-9ec64b00-5b4f-4d60-9467-a8dcc465dee1.png)
 
-### Version 1.1
+### Version 2.1
+Apr 2023
 
 1. Assisted generation of CSS styles
 
@@ -32,5 +34,14 @@ Version 1 :
 Version 1.1 :
 - Added containers.
 - Added the possibility of modifying the top tab color
+
+Version 2.0:
+- Allow adding border to a single object
+- New KPI specific look&feel features
+- Allow hide sheet title only
+
+Version 2.1:
+- Allow to create lateral panels
+- Support for Apr'23 objects
 
 Can be used as it is, but if preffer do not put it in production it's possible to copy the CSS generated and copy it in a supported Theme.

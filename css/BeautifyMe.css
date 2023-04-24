@@ -6,6 +6,19 @@
 	font-family: 'OpenSans';
 	src: url('../fonts/OpenSans-Regular.ttf');
 }
+@font-face {
+	font-family: 'Handcrafted';
+	src: url('../fonts/Handcrafted.ttf');
+}
+@font-face {
+	font-family: 'Marker';
+	src: url('../fonts/Marker.otf');
+}
+@font-face {
+	font-family: 'Telotet';
+	src: url('../fonts/Om Telolet Om.ttf');
+}
+
 .BeautifyMe-tooltip {
 	position: absolute;
 	top: 0px;

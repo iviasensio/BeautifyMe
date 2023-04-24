@@ -80,11 +80,17 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                         value: "Heebo, sans-serif",
                         label: "Heebo"
                     },{
+                        value: "Handcrafted",
+                        label: "Handcrafted"
+                    },{
                         value: "Ink Free",
                         label: "Ink Free"
                     }, {
                         value: "Lucida Handwriting",
                         label: "Lucida Handwriting"
+                    }, {
+                        value: "Marker",
+                        label: "Marker"
                     }, {
                         value: "OpenSans",
                         label: "OpenSans"
@@ -103,6 +109,9 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                     }, {
                         value: "Tahoma",
                         label: "Tahoma"
+                    }, {
+                        value: "Telotet",
+                        label: "Telotet"
                     }, {
                         value: "Verdana",
                         label: "Verdana"
@@ -225,6 +234,20 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     return !data.fontcolorbool && data.shdefaulttextcolorbool;
                                 }
                             },
+                            CustomTitleBool: {
+                                ref : "customtitlebool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Custom Titles",
+                                options: [{
+                                    value: false,
+                                    label: "Single"
+                                }, {
+                                    value: true,
+                                    label: "Custom"
+                                }],
+                                defaultValue: false
+                            },
                             TitlesPosition: {
                                 type: "string",
                                 component: "item-selection-list",
@@ -245,7 +268,10 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     value: "right",
                                     icon: "align_right",
                                     component: "icon-item"
-                                }]
+                                }],
+                                show : function(data) {
+                                    return data.customtitlebool;
+                                }
                             },
                             TitleSingleColor: {
                                 ref: "titlesinglecolor",
@@ -254,6 +280,9 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 component: "color-picker",  
                                 defaultValue: {  
                                     color: '#808080'  
+                                },
+                                show : function(data) {
+                                    return data.customtitlebool;
                                 }
                             },
                             TitlesFontSize: {                                
@@ -264,7 +293,10 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 min: 100,
                                 max: 200,
                                 step: 5,
-                                defaultValue: 115
+                                defaultValue: 115,
+                                show : function(data) {
+                                    return data.customtitlebool;
+                                }
                             },
                             TitlesPadding: {                                
                                 type: "number",
@@ -274,7 +306,10 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 min: 0,
                                 max: 100,
                                 step: 5,
-                                defaultValue: 30
+                                defaultValue: 30,
+                                show : function(data) {
+                                    return data.customtitlebool;
+                                }
                             },
                             GeneralRulesBool: {
                                 ref : "qvbgcolorbool",
@@ -361,7 +396,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 label: "Border width",
                                 ref: "qvborderwidth",
                                 min: 0,
-                                max: 5,
+                                max: 10,
                                 step: 1,
                                 defaultValue: 1,
                                 show : function(data) {
@@ -497,6 +532,20 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     return data.SheetHideMobileBool && data.SheetNavigationBool;
                                 }
                             },
+                            SheetChangeBackgroundBool: {
+                                ref : "shchangebgBool",
+                                type : "boolean",
+                                component : "switch",
+                                label: "Modify background",
+                                options: [{
+                                    value: true,
+                                    label: "True"
+                                }, {
+                                    value: false,
+                                    label: "False"
+                                }],
+                                defaultValue: false
+                            },  
                             SheetBackgroundColorBool: {
                                 ref : "shbgcolorbool",
                                 type : "boolean",
@@ -509,7 +558,10 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     value: true,
                                     label: "Custom"
                                 }],
-                                defaultValue: false                                
+                                defaultValue: false,
+                                show : function(data) {
+                                    return data.shchangebgBool;
+                                }                             
                             },
                             SheetBackgroundCustomColor: {
                                 type: "string",
@@ -518,7 +570,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 defaultValue : "",
                                 expression : "optional",
                                 show : function(data) {
-                                    return data.shbgcolorbool;
+                                    return data.shchangebgBool && data.shbgcolorbool;
                                 }
                             },
                             SheetBackgroundSingleColor: {
@@ -530,14 +582,14 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     color: '#ffffff'  
                                 },
                                 show : function(data) {
-                                    return !data.shbgcolorbool;
+                                    return data.shchangebgBool && !data.shbgcolorbool;
                                 }
                             },
                             SheetBackgroundDegreeBool: {
                                 ref : "shbgdegreebool",
                                 type : "boolean",
                                 component : "switch",
-                                label : "Use degree",
+                                label : "Use degree/panels",
                                 options: [{
                                     value: false,
                                     label: "False"
@@ -545,7 +597,10 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     value: true,
                                     label: "True"
                                 }],
-                                defaultValue: false                                
+                                defaultValue: false,
+                                show : function(data) {
+                                    return data.shchangebgBool;
+                                }                             
                             },
                             //2nd color
                             SheetBackgroundColorBool2: {
@@ -562,7 +617,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 }],
                                 defaultValue: false,
                                 show : function(data) {
-                                    return data.shbgdegreebool;
+                                    return data.shchangebgBool && data.shbgdegreebool;
                                 }
                             },
                             SheetBackgroundCustomColor2: {
@@ -572,19 +627,19 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 defaultValue : "#ffffff",
                                 expression : "optional",
                                 show : function(data) {
-                                    return data.shbgcolorbool2 && data.shbgdegreebool;
+                                    return data.shchangebgBool && data.shbgcolorbool2 && data.shbgdegreebool;
                                 }
                             },
                             SheetBackgroundSingleColor2: {
                                 ref: "shbgsinglecolor2",
-                                label: "Background single 2nd color",
+                                label: "Degree single 2nd color",
                                 type: "object",  
                                 component: "color-picker",  
                                 defaultValue: {  
-                                    color: '#ffffff'  
+                                    color: '#cccccc'  
                                 },
                                 show : function(data) {
-                                    return !data.shbgcolorbool2 && data.shbgdegreebool;
+                                    return data.shchangebgBool && !data.shbgcolorbool2 && data.shbgdegreebool;
                                 }
                             },
                             SheetBackgroundDegreePosition: {
@@ -596,7 +651,93 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 ref: "shbgdegreedir",
                                 defaultValue: "centerRight",
                                 show : function(data) {
-                                    return data.shbgdegreebool;
+                                    return data.shchangebgBool && data.shbgdegreebool;
+                                }
+                            },
+                            //Adding a background responsive left panel
+                            SheetBackgroundLeftPanelBool: {
+                                ref : "shbgleftpanelbool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Add a left panel",
+                                options: [{
+                                    value: false,
+                                    label: "Single"
+                                }, {
+                                    value: true,
+                                    label: "Custom"
+                                }],
+                                defaultValue: false,
+                                show : function(data) {
+                                    return data.shchangebgBool && data.shbgdegreebool;
+                                }
+                            },
+                            SheetBackgroundLeftPanelWidth: {
+                                type: "number",
+                                component: "slider",
+                                label: "Left panel width",
+                                ref: "shbgleftpanelwidth",
+                                min: 1,
+                                max: 50,
+                                step: 1,
+                                defaultValue: 7,
+                                show : function(data) {
+                                    return  data.shchangebgBool && data.shbgdegreebool && data.shbgleftpanelbool;
+                                }                               
+                            },
+                            SheetBackgroundLeftPanelColor: {
+                                ref: "shbgleftpanelcolor",
+                                label: "Left panel color",
+                                type: "object",  
+                                component: "color-picker",  
+                                defaultValue: {  
+                                    color: '#cccccc'  
+                                },
+                                show : function(data) {
+                                    return data.shchangebgBool && data.shbgdegreebool && data.shbgleftpanelbool;
+                                }
+                            },
+                            //Adding a background responsive right panel
+                            SheetBackgroundReftPanelBool: {
+                                ref : "shbgrightpanelbool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Add a right panel",
+                                options: [{
+                                    value: false,
+                                    label: "Single"
+                                }, {
+                                    value: true,
+                                    label: "Custom"
+                                }],
+                                defaultValue: false,
+                                show : function(data) {
+                                    return data.shchangebgBool && data.shbgdegreebool;
+                                }
+                            },
+                            SheetBackgroundRightPanelWidth: {
+                                type: "number",
+                                component: "slider",
+                                label: "Right panel width",
+                                ref: "shbgrightpanelwidth",
+                                min: 1,
+                                max: 50,
+                                step: 1,
+                                defaultValue: 7,
+                                show : function(data) {
+                                    return data.shchangebgBool && data.shbgdegreebool && data.shbgrightpanelbool;
+                                }                               
+                            },
+                            SheetBackgroundRightPanelColor: {
+                                ref: "shbgrightpanelcolor",
+                                label: "Right panel color",
+                                type: "object",  
+                                component: "color-picker",  
+                                defaultValue: {  
+                                    color: '#cccccc'  
+                                },
+                                show : function(data) {
+                                    return data.shchangebgBool && data.shbgdegreebool && data.shbgrightpanelbool;
                                 }
                             },
                             //Background Image
@@ -616,7 +757,10 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     value: true,
                                     label: "Yes, please"
                                 }],
-                                defaultValue: false                                
+                                defaultValue: false,
+                                show : function(data) {
+                                    return data.shchangebgBool;
+                                }
                             },
                             SheetBackgroundImgSource: {
                                 type: "string",
@@ -635,7 +779,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 ],
                                 defaultValue: "lib",
                                 show : function(data) {
-                                    return data.shbgimgbool;
+                                    return data.shchangebgBool && data.shbgimgbool;
                                 }
                             },                                        
                             SheetBackgroundImgMedia: {
@@ -645,7 +789,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 layoutRef: "shbgimgmedia",
                                 type: "string",
                                 show : function(data) {
-                                    return data.shbgimgbool && data.shbgimgsrc == 'lib';
+                                    return data.shchangebgBool && data.shbgimgbool && data.shbgimgsrc == 'lib';
                                 }
                             },
                             SheetBackgroundImgUrl: {
@@ -655,7 +799,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 defaultValue : '',
                                 expression : "optional",
                                 show : function(data) {
-                                    return data.shbgimgbool && data.shbgimgsrc == 'url';
+                                    return data.shchangebgBool && data.shbgimgbool && data.shbgimgsrc == 'url';
                                 }
                             },   
                             SheetBackgroundImgOpacity: {                                
@@ -668,7 +812,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 step: 0.1,
                                 defaultValue: 1,
                                 show : function(data) {
-                                    return data.shbgimgbool;
+                                    return data.shchangebgBool && data.shbgimgbool;
                                 }
                             },
                             SheetBackgroundImgSize: {
@@ -679,7 +823,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 options: vImgSize,
                                 defaultValue: "cover",
                                 show : function(data) {
-                                    return data.shbgimgbool;
+                                    return data.shchangebgBool && data.shbgimgbool;
                                 }
                             },
                             SheetBackgroundImgPosition: {
@@ -691,7 +835,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 ref: "shbgimgdir",
                                 defaultValue: "centerCenter",
                                 show : function(data) {
-                                    return data.shbgimgbool && data.shbgimgsize != 'cover' && data.shbgimgsize != '100% 100%';
+                                    return data.shchangebgBool && data.shbgimgbool && data.shbgimgsize != 'cover' && data.shbgimgsize != '100% 100%';
                                 }
                             },
                             SheetBackgroundImgSizePerc: {
@@ -704,7 +848,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 step: 5,
                                 defaultValue: 50,
                                 show : function(data) {
-                                    return  data.shbgimgbool && data.shbgimgsize == 'percentage';
+                                    return  data.shchangebgBool && data.shbgimgbool && data.shbgimgsize == 'percentage';
                                 }                               
                             },
                             SheetBackgroundPaddingBool: {
@@ -721,7 +865,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 }],
                                 defaultValue: false,
                                 show : function(data) {
-                                    return  data.shbgimgbool;
+                                    return  data.shchangebgBool && data.shbgimgbool;
                                 } 
                             },
                             SheetBackgroundImgPadding: {
@@ -734,12 +878,12 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 step: 1,
                                 defaultValue: 0,
                                 show : function(data) {
-                                    return  data.shbgimgbool && data.shbgpaddingbool;
+                                    return  data.shchangebgBool && data.shbgimgbool && data.shbgpaddingbool;
                                 }                               
                             },
                             // Title bar
                             StepSheet2: {
-                                label: "",
+                                label: ". . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
                                 component: "text"
                             },
                             SheetTitle: {
@@ -756,6 +900,9 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 }, {
                                     value: "t",
                                     label: "Transparent"
+                                }, {
+                                    value: "l",
+                                    label: "Hide Title"
                                 }],
                                 defaultValue: "s"
                             },
@@ -773,7 +920,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 }],
                                 defaultValue: false,
                                 show : function(data) {
-                                    return data.sheettitle == 's';
+                                    return data.sheettitle == 's' || data.sheettitle == 'l';
                                 }                              
                             },
                             SheetTitleSingleColor: {
@@ -785,7 +932,34 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     color: '#ce8c25'  
                                 },
                                 show : function(data) {
-                                    return data.sheettitle == 's' && data.sheettitlecolbool;
+                                    return (data.sheettitle == 's' || data.sheettitle == 'l') && data.sheettitlecolbool;
+                                }
+                            },
+                            SheetTitleImgBool: {
+                                ref : "sheettitleimgbool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Top tab image",
+                                options: [{
+                                    value: false,
+                                    label: "No, thanks"
+                                }, {
+                                    value: true,
+                                    label: "Yes, please"
+                                }],
+                                defaultValue: false,
+                                show : function(data) {
+                                    return data.sheettitle == 's' || data.sheettitle == 'l';
+                                }                              
+                            },
+                            SheetTitleImg: {
+                                label:"Image media",
+                                component: "media",
+                                ref: "sheettitleimg",
+                                layoutRef: "sheettitleimg",
+                                type: "string",
+                                show : function(data) {
+                                    return (data.sheettitle == 's' || data.sheettitle == 'l') && data.sheettitleimgbool;
                                 }
                             }
                         }
@@ -826,6 +1000,23 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     return data.filterpanebool;
                                 }
                             },
+                            FilterBgTranspBool: {
+                                ref : "filterbgtranspbool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Make transparent",
+                                options: [{
+                                    value: false,
+                                    label: "No, thanks"
+                                }, {
+                                    value: true,
+                                    label: "Yes, please"
+                                }],
+                                defaultValue: false,
+                                show : function(data) {
+                                    return data.filterpanebool && data.filterbgbool;
+                                }
+                            },
                             FilterPaneBgSingleColor: {
                                 ref: "fpbgsinglecolor",
                                 label: "Background color",
@@ -835,7 +1026,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     color: '#ffffff'  
                                 },
                                 show : function(data) {
-                                    return data.filterpanebool && data.filterbgbool;
+                                    return data.filterpanebool && data.filterbgbool && !data.filterbgtranspbool;
                                 }
                             },
                             FilterPaneSingleColor: {
@@ -945,6 +1136,19 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 items: vIcons,
                                 show : function(data) {
                                     return data.filterpanebool && data.filtericonbool;
+                                }
+                            },
+                            FilterStateLineHeight: {                                
+                                type: "number",
+                                component: "slider",
+                                label: "State line height",
+                                ref: "fpstatelineheight",
+                                min: 0,
+                                max: 8,
+                                step: 1,
+                                defaultValue: 4,
+                                show : function(data) {
+                                    return data.filterpanebool;
                                 }
                             }
                         }
@@ -1248,6 +1452,102 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 show : function(data) {
                                     return data.btnhoverbool;
                                 }
+                            }
+                        }
+                    },
+                    //KPI
+                    KPISettings: {
+                        component: "items",
+                        label: "KPI settings",
+                        items: {
+                            KPIModifyBool: {
+                                ref : "kpimodifybool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Change default settings",
+                                options: [{
+                                    value: false,
+                                    label: "No, thanks"
+                                }, {
+                                    value: true,
+                                    label: "Yes, please"
+                                }],
+                                defaultValue: false                                
+                            },
+                            KPIFontFamily: {
+                                ref: "kpifontfamily",
+                                type: "string",
+                                component: "dropdown",
+                                label: "Font family",
+                                options: vFontFamily,
+                                defaultValue: "unset",
+                                show : function(data) {
+                                    return data.kpimodifybool;
+                                }                               
+                            },
+                            KPILabelColor: {
+                                ref: "kpilabelcolor",
+                                label: "Label color",
+                                type: "object",  
+                                component: "color-picker",  
+                                defaultValue: {  
+                                    color: '#595959'  
+                                },
+                                show : function(data) {
+                                    return data.kpimodifybool;
+                                }
+                            },
+                            KPIBorderBool: {
+                                ref : "kpiborderbool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Set a border",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: false
+                            },
+                            KPIBorderColor: {
+                                ref: "kpibordercolor",
+                                label: "Border color",
+                                type: "object",  
+                                component: "color-picker",  
+                                defaultValue: {  
+                                    color: "#f2f2f2"  
+                                },
+                                show : function(data) {
+                                    return  data.kpiborderbool;
+                                }
+                            },
+                            KPIBorderWidth: {
+                                type: "number",
+                                component: "slider",
+                                label: "Border width",
+                                ref: "kpiborderwidth",
+                                min: 0,
+                                max: 10,
+                                step: 1,
+                                defaultValue: 1,
+                                show : function(data) {
+                                    return  data.kpiborderbool;
+                                }                               
+                            },
+                            KPIBorderRadius: {
+                                type: "number",
+                                component: "slider",
+                                label: "Border radius",
+                                ref: "kpiborderradius",
+                                min: 0,
+                                max: 50,
+                                step: 5,
+                                defaultValue: 0,
+                                show : function(data) {
+                                    return  data.kpiborderbool;
+                                }                               
                             }
                         }
                     },
@@ -1902,6 +2202,60 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     return  data.IdsImgBool && data.idsimgsize == 'percentage' && data.ObjId.substring(data.ObjId.indexOf('#:#') + 3) != 'action-button';
                                 }                               
                             },
+                            //
+                            IdsBorderBool: {
+                                ref : "idsborderbool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Set a border",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: false
+                            },
+                            IdsBorderColor: {
+                                ref: "idsbordercolor",
+                                label: "Border color",
+                                type: "object",  
+                                component: "color-picker",  
+                                defaultValue: {  
+                                    color: "#f2f2f2"  
+                                },
+                                show : function(data) {
+                                    return  data.idsborderbool;
+                                }
+                            },
+                            IdsBorderWidth: {
+                                type: "number",
+                                component: "slider",
+                                label: "Border width",
+                                ref: "idsborderwidth",
+                                min: 0,
+                                max: 10,
+                                step: 1,
+                                defaultValue: 1,
+                                show : function(data) {
+                                    return  data.idsborderbool;
+                                }                               
+                            },
+                            IdsBorderRadius: {
+                                type: "number",
+                                component: "slider",
+                                label: "Border radius",
+                                ref: "idsborderradius",
+                                min: 0,
+                                max: 50,
+                                step: 5,
+                                defaultValue: 0,
+                                show : function(data) {
+                                    return  data.idsborderbool;
+                                }                               
+                            },
+                            //
                             IdsShadowBool: {
                                 ref : "idshadowbool",
                                 type : "boolean",
