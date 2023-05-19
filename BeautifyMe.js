@@ -155,7 +155,7 @@ define( ["jquery",
          				beauty_style += '.qv-panel-sheet .sheet-title-container{background:' + laySheet.sheettitlecolor + '!important;border: none!important;}';
          			}
          			if(laySheet.sheettitleimgbool){
-         				beauty_style += '.qv-panel-sheet .sheet-title-container{background: url(' + laySheet.sheettitleimg + ')!important;background-size: cover;}';
+         				beauty_style += '.qv-panel-sheet .sheet-title-container{background: url(' + laySheet.sheettitleimg + ')!important;background-size: cover!important;}';
          			}
 				break;
          		case 'l':
@@ -163,7 +163,7 @@ define( ["jquery",
          				beauty_style += '.qv-panel-sheet .sheet-title-container{background:' + laySheet.sheettitlecolor + '!important;border: none!important;}';
          			}
          			if(laySheet.sheettitleimgbool){
-         				beauty_style += '.qv-panel-sheet .sheet-title-container{background: url(' + laySheet.sheettitleimg + ')!important;background-size: cover;}';
+         				beauty_style += '.qv-panel-sheet .sheet-title-container{background: url(' + laySheet.sheettitleimg + ')!important;background-size: cover!important;}';
          			}
          			beauty_style += '#sheet-title .sheet-title-text{visibility:hidden;}';
          		break;
@@ -181,18 +181,21 @@ define( ["jquery",
 
 			/******filter Pane ****************/
 			if(layFP.FPBool){
+				var vFPBorder = '';
+				if(layFP.FPBorderBool){
+					beauty_style += '.qv-collapsed-listbox{border:none!important;}';
+					vFPBorder = 'border:none!important;';
+				}
 				beauty_style += '.qv-collapsed-listbox{' + layFP.FPSettings + '}';				
 				beauty_style += '.qv-collapsed-listbox .title-wrapper .title {' + layFP.FPTitleSettings + '}';
 				beauty_style += '.qv-listbox{' + layFP.FPSettingsExt + '}';
 				beauty_style += '.qv-inline-edit-value{' + layFP.FPSettingsHead + '}';
 				beauty_style += '.qv-collapsed-listbox .qv-state-count-bar{height:' + layFP.FPStateLine + '}';
-				beauty_style += 'div.folded-listbox > div {' + layFP.FPSettings + layFP.FPTitleSettings + '}';
+				//beauty_style += '.MuiGrid-root .MuiGrid-item:not(:has(button)):not(:has(div)):not(:has(p)) {max-height:' + layFP.FPStateLine + ';}'
+				beauty_style += 'div.folded-listbox > div {' + layFP.FPSettings + layFP.FPTitleSettings + vFPBorder + '}';
 				beauty_style += '.MuiGrid-root .MuiGrid-container .MuiGrid-direction-xs-column {background:' + layFP.FPBackground + '}';
 				beauty_style += '.MuiGrid-root .MuiGrid-container .MuiGrid-direction-xs-column span{font-size:' + layFP.FPFontSize2 + 'px!important;}';
-
-				if(layFP.FPBorderBool){
-					beauty_style += '.qv-collapsed-listbox{border:none!important;}';
-				}
+				
 
 				if(layFP.FPIconBool){
 					beauty_style += '.qv-collapsed-listbox .title-wrapper .title:before {font-feature-settings: "liga";' +
@@ -210,7 +213,7 @@ define( ["jquery",
 					'text-decoration: inherit;' +
 					'content: "' + layFP.FPIcon +'";' +
 					'margin-right: 5px;' +
-    				'position: absolute;' +
+    				'position: absolute;' + 
     				'right: 0;}';
 
     				beauty_style += 'div.folded-listbox > div:before {font-feature-settings: "liga";' +
@@ -229,7 +232,7 @@ define( ["jquery",
 					'content: "' + layFP.FPIcon +'";' +
 					'margin-right: 10px;' +
 					'margin-top: 5px;' +
-    				'position: absolute;' +
+    				'position: absolute;' +    				
     				'right: 0;}';
 				}
 			}
@@ -799,7 +802,8 @@ define( ["jquery",
 					vFPTitleSettings = 'font-size:' + layout.fpfontsize +'px;text-align:' + layout.fplabelalign + ';color:' + layout.fpsinglecolor.color + ';';
 					vFPFontSize2 = layout.fpfontsize;
 					vFPSettingsHead = 'font-family: ' + layout.fpfontfamily +'!important;font-size:' + layout.fpfontsize + 'px!important;text-align:' + layout.fplabelalign + '!important;color:' + layout.fpsinglecolor.color + '!important;';
-				}	vFPStateCountBar = layout.fpstatelineheight + 'px;';
+					vFPStateCountBar = layout.fpstatelineheight + 'px;';
+				}
 
 				var vTableHighlightProps = '';
 				if(layout.TableHighlightBool){

@@ -1144,7 +1144,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 label: "State line height",
                                 ref: "fpstatelineheight",
                                 min: 0,
-                                max: 8,
+                                max: 5,
                                 step: 1,
                                 defaultValue: 4,
                                 show : function(data) {
