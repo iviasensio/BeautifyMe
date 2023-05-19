@@ -194,7 +194,8 @@ define( ["jquery",
 				//beauty_style += '.MuiGrid-root .MuiGrid-item:not(:has(button)):not(:has(div)):not(:has(p)) {max-height:' + layFP.FPStateLine + ';}'
 				beauty_style += 'div.folded-listbox > div {' + layFP.FPSettings + layFP.FPTitleSettings + vFPBorder + '}';
 				beauty_style += '.MuiGrid-root .MuiGrid-container .MuiGrid-direction-xs-column {background:' + layFP.FPBackground + '}';
-				beauty_style += '.MuiGrid-root .MuiGrid-container .MuiGrid-direction-xs-column span{font-size:' + layFP.FPFontSize2 + 'px!important;}';
+				beauty_style += '.MuiGrid-root .MuiGrid-container .MuiGrid-direction-xs-column span{font-size:' + layFP.FPFontSize2 + 'px!important;font-family:' + layFP.FPFontFamily + '}';
+				beauty_style += '.MuiGrid-root .MuiGrid-container h6{font-family:' + layFP.FPFontFamily + '}';
 				
 
 				if(layFP.FPIconBool){
@@ -778,6 +779,7 @@ define( ["jquery",
 				var vFPSettings = '';
 				var vFPBackground = '';
 				var vFPFontSize2 = '';
+				var vFPFontFamily = '';
 				var vFPSettingsExt = '';
 				var vFPTitleSettings = '';
 				var vFPSettingsHead = '';
@@ -801,6 +803,7 @@ define( ["jquery",
 					vFPSettings += 'font-family: ' + layout.fpfontfamily +'!important;';
 					vFPTitleSettings = 'font-size:' + layout.fpfontsize +'px;text-align:' + layout.fplabelalign + ';color:' + layout.fpsinglecolor.color + ';';
 					vFPFontSize2 = layout.fpfontsize;
+					vFPFontFamily = layout.fpfontfamily + '!important;';
 					vFPSettingsHead = 'font-family: ' + layout.fpfontfamily +'!important;font-size:' + layout.fpfontsize + 'px!important;text-align:' + layout.fplabelalign + '!important;color:' + layout.fpsinglecolor.color + '!important;';
 					vFPStateCountBar = layout.fpstatelineheight + 'px;';
 				}
@@ -824,7 +827,7 @@ define( ["jquery",
          		laySettings = {"MultiKPI":layout.multikpibool,"FontFamily":layout.fontfamily,"NewFontColor":layout.shdefaulttextcolorbool,"FontColor":vFontColor,"CustomTitles":layout.customtitlebool,"TitleAlign":layout.titlealign,"TitleColor":layout.titlesinglecolor.color,"TitleFontSize":layout.TitlesFontSize,"TitlePadding":layout.TitlesPadding};
          		laySheet = {"shchangebgBool":layout.shchangebgBool,"shbgcolor1":vShBgColor1,"shbgcolor2":vShBgColor2,"shbgdegreedir":vShBgDegreeDir,"shbgimg":vShBgImg,"shbgimgopacity":layout.shbgimgopacity,"shbgimgdir":vShBgImgDir,"shbgimgsize":vShBgImgSize,"sheettitle":layout.sheettitle,"sheettitlecolbool":layout.sheettitlecolbool,"sheettitlecolor":layout.sheettitlecolor.color,"sheettitleimgbool":layout.sheettitleimgbool,"sheettitleimg":layout.sheettitleimg,"shbgleftpanelbool":layout.shbgleftpanelbool,"shbgleftpanelwidth":layout.shbgleftpanelwidth,"shbgrightpanelbool":layout.shbgrightpanelbool,"shbgrightpanelwidth":layout.shbgrightpanelwidth,"shbgleftpanelcolor":layout.shbgleftpanelcolor.color,"shbgrightpanelcolor":layout.shbgrightpanelcolor.color};
          		layQV = {"QVBgColor":QVBgColor,"QVBorder":QVBorder}				
-				layFP = {"FPBool":layout.filterpanebool,"FPSettings":vFPSettings,"FPBackground":vFPBackground,"FPFontSize2":vFPFontSize2,"FPTitleSettings":vFPTitleSettings,"FPSettingsHead":vFPSettingsHead,"FPSettingsExt":vFPSettingsExt,"FPBorderBool":layout.filterborderbool,"FPIconBool":layout.filtericonbool,"FPIcon":layout.filtericon, "FPStateLine":vFPStateCountBar};
+				layFP = {"FPBool":layout.filterpanebool,"FPSettings":vFPSettings,"FPBackground":vFPBackground,"FPFontSize2":vFPFontSize2,"FPFontFamily":vFPFontFamily,"FPTitleSettings":vFPTitleSettings,"FPSettingsHead":vFPSettingsHead,"FPSettingsExt":vFPSettingsExt,"FPBorderBool":layout.filterborderbool,"FPIconBool":layout.filtericonbool,"FPIcon":layout.filtericon, "FPStateLine":vFPStateCountBar};
 				layTXT = {"XSBool":layout.txtxsbool,"XSFamily":layout.txtxlfontfamily,"XSSize":layout.txtxsfontsize,"SBool":layout.txtsbool,"SFamily":layout.txtsfontfamily,"SSize":layout.txtsfontsize,"MBool":layout.txtmbool,"MFamily":layout.txtmfontfamily,"MSize":layout.txtmfontsize,"LBool":layout.txtlbool,"LFamily":layout.txtlfontfamily,"LSize":layout.txtlfontsize,"XLBool":layout.txtxlbool,"XLFamily":layout.txtxlfontfamily,"XLSize":layout.txtxlfontsize,"XLGrow":layout.txtxlgrowbool};
 				layBTN = {"BTNTranspBool":layout.btntranspbool,"BTNFamily":layout.btnfontfamily,"BTNShadowBool":layout.btnshadowbool,"BTNTextShadowBool":layout.btntextshadowbool,"BTNHoverBool":layout.btnhoverbool,"BTNHoverColor":layout.btnhoversinglecolor.color};
 				layKPI = {"KPIModifyBool":layout.kpimodifybool,"KPIFontFamily":layout.kpifontfamily,"KPILabelColor":layout.kpilabelcolor.color,"KPIBorderBool":layout.kpiborderbool,"KPIBorderColor":layout.kpibordercolor.color,"KPIBorderWidth":layout.kpiborderwidth,"KPIBorderRadius":layout.kpiborderradius};
