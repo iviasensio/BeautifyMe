@@ -22,8 +22,8 @@ This extension can help to customize:
 ![BeautifyMe2](https://user-images.githubusercontent.com/11334576/153909398-efad6974-01b8-4e81-a119-bb401bcbd14c.png)
 ![BeautifyMe3](https://user-images.githubusercontent.com/11334576/153909415-9ec64b00-5b4f-4d60-9467-a8dcc465dee1.png)
 
-### Version 2.1
-Apr 2023
+### Version 2.2
+June 2023
 
 1. Assisted generation of CSS styles
 
@@ -43,5 +43,10 @@ Version 2.0:
 Version 2.1:
 - Allow to create lateral panels
 - Support for Apr'23 objects
+
+Version 2.2:
+- Allow to add a padding and shadow to the sheets
+- Background degree colors and lateral panels in separate concepts
+- New fixes to adapt to new CSS clases in Qlik Cloud May'23
 
 Can be used as it is, but if preffer do not put it in production it's possible to copy the CSS generated and copy it in a supported Theme.

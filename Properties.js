@@ -1,4 +1,3 @@
-//define([], function () {
 define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
     "use strict";
     var app = qlik.currApp();
@@ -589,7 +588,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 ref : "shbgdegreebool",
                                 type : "boolean",
                                 component : "switch",
-                                label : "Use degree/panels",
+                                label : "Use degree",
                                 options: [{
                                     value: false,
                                     label: "False"
@@ -669,7 +668,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 }],
                                 defaultValue: false,
                                 show : function(data) {
-                                    return data.shchangebgBool && data.shbgdegreebool;
+                                    return data.shchangebgBool;
                                 }
                             },
                             SheetBackgroundLeftPanelWidth: {
@@ -682,7 +681,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 step: 1,
                                 defaultValue: 7,
                                 show : function(data) {
-                                    return  data.shchangebgBool && data.shbgdegreebool && data.shbgleftpanelbool;
+                                    return  data.shchangebgBool && data.shbgleftpanelbool;
                                 }                               
                             },
                             SheetBackgroundLeftPanelColor: {
@@ -694,7 +693,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     color: '#cccccc'  
                                 },
                                 show : function(data) {
-                                    return data.shchangebgBool && data.shbgdegreebool && data.shbgleftpanelbool;
+                                    return data.shchangebgBool && data.shbgleftpanelbool;
                                 }
                             },
                             //Adding a background responsive right panel
@@ -712,7 +711,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 }],
                                 defaultValue: false,
                                 show : function(data) {
-                                    return data.shchangebgBool && data.shbgdegreebool;
+                                    return data.shchangebgBool;
                                 }
                             },
                             SheetBackgroundRightPanelWidth: {
@@ -725,7 +724,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 step: 1,
                                 defaultValue: 7,
                                 show : function(data) {
-                                    return data.shchangebgBool && data.shbgdegreebool && data.shbgrightpanelbool;
+                                    return data.shchangebgBool && data.shbgrightpanelbool;
                                 }                               
                             },
                             SheetBackgroundRightPanelColor: {
@@ -737,7 +736,7 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                     color: '#cccccc'  
                                 },
                                 show : function(data) {
-                                    return data.shchangebgBool && data.shbgdegreebool && data.shbgrightpanelbool;
+                                    return data.shchangebgBool && data.shbgrightpanelbool;
                                 }
                             },
                             //Background Image
@@ -880,6 +879,62 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                                 show : function(data) {
                                     return  data.shchangebgBool && data.shbgimgbool && data.shbgpaddingbool;
                                 }                               
+                            },
+                            // Background shadow
+                            SheetBackgroundShadowBool: {
+                                ref : "shbgshadowbool",
+                                type : "boolean",
+                                component : "switch",
+                                label : "Add a shadow",
+                                options: [{
+                                    value: false,
+                                    label: "No, thanks"
+                                }, {
+                                    value: true,
+                                    label: "Yes, please"
+                                }],
+                                defaultValue: false,
+                                show : function(data) {
+                                    return  data.shchangebgBool;
+                                } 
+                            },
+                            SheetBackgroundShadowSize: {
+                                type: "number",
+                                component: "slider",
+                                label: "Shadow size",
+                                ref: "shbgshadowsize",
+                                min: 0,
+                                max: 20,
+                                step: 1,
+                                defaultValue: 5,
+                                show : function(data) {
+                                    return  data.shchangebgBool && data.shbgshadowbool;
+                                }                               
+                            },
+                            SheetBackgroundPadding: {
+                                type: "number",
+                                component: "slider",
+                                label: "Padding size",
+                                ref: "shbgpadding",
+                                min: 0,
+                                max: 80,
+                                step: 5,
+                                defaultValue: 20,
+                                show : function(data) {
+                                    return  data.shchangebgBool && data.shbgshadowbool;
+                                }                               
+                            },
+                            SheetBackgroundPaddingColor: {
+                                ref: "shbgpaddingcolor",
+                                label: "Padding color",
+                                type: "object",  
+                                component: "color-picker",  
+                                defaultValue: {  
+                                    color: '#cccccc'  
+                                },
+                                show : function(data) {
+                                    return data.shchangebgBool && data.shbgshadowbool;
+                                }
                             },
                             // Title bar
                             StepSheet2: {

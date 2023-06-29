@@ -60,7 +60,7 @@ define( ["jquery",
 
 			/*******Sheet Settings********/
 			if(laySheet.shchangebgBool){
-				if(laySheet.shbgcolor2 == 'none'){
+				if(laySheet.shbgdegreebool != true && laySheet.shbgleftpanelbool != true && laySheet.shbgrightpanelbool != true){
 					beauty_style += '.qvt-sheet {' +
 					'opacity:' + laySheet.shbgimgopacity + ';' +
 	  				'background: ' + laySheet.shbgimg + ' ' + laySheet.shbgcolor1 + ';' +
@@ -142,6 +142,11 @@ define( ["jquery",
 		  				'}}';
 			  		}
 				}
+				if(laySheet.shbgshadowbool){
+					beauty_style += '.qvt-sheet {box-shadow: rgba(0, 0, 0, 0.35) ' + laySheet.shbgshadowsize + 'px 5px 15px;}';
+					beauty_style += '.borderbox {padding: ' + laySheet.shbgpadding + 'px;}';
+					beauty_style += '.qv-panel-stage {background: ' + laySheet.shbgpaddingcolor + ';}';
+				}
 			}
 			switch (laySheet.sheettitle){
          		case 'h':
@@ -195,7 +200,7 @@ define( ["jquery",
 				beauty_style += 'div.folded-listbox > div {' + layFP.FPSettings + layFP.FPTitleSettings + vFPBorder + '}';
 				beauty_style += '.MuiGrid-root .MuiGrid-container .MuiGrid-direction-xs-column {background:' + layFP.FPBackground + '}';
 				beauty_style += '.MuiGrid-root .MuiGrid-container .MuiGrid-direction-xs-column span{font-size:' + layFP.FPFontSize2 + 'px!important;font-family:' + layFP.FPFontFamily + '}';
-				beauty_style += '.MuiGrid-root .MuiGrid-container h6{font-family:' + layFP.FPFontFamily + '}';
+				beauty_style += '.MuiGrid-root .MuiGrid-container h6{font-family:' + layFP.FPFontFamily + ';font-size:' + layFP.FPFontSize2 + 'px;}';
 				
 
 				if(layFP.FPIconBool){
@@ -647,7 +652,7 @@ define( ["jquery",
 					vShBgColor1 = layout.shbgsinglecolor.color;
 				}
 				
-				var vShBgColor2 = 'none';
+				var vShBgColor2 = vShBgColor1;
 				if(layout.shbgdegreebool){
 					if(layout.shbgcolorbool2){
 						vShBgColor2 = layout.shbgcustomcolor2;
@@ -732,8 +737,12 @@ define( ["jquery",
 	         	}
 
 	         	var vShBgImgSize = layout.shbgimgsize;
-	         	if(vShBgImgSize == 'percentage'){
-	         		vShBgImgSize = layout.shbgimgsizeperc + '%';	         		
+	         	if(vShBgImgSize == 'percentage' && layout.shbgdegreebool){
+	         		vShBgImgSize = 'auto';
+	         	}else{
+	         		if(vShBgImgSize == 'percentage'){
+	         			vShBgImgSize = layout.shbgimgsizeperc + '%';
+	         		}
 	         	}
 
          		var vFontColor;
@@ -825,7 +834,7 @@ define( ["jquery",
 				}
 				
          		laySettings = {"MultiKPI":layout.multikpibool,"FontFamily":layout.fontfamily,"NewFontColor":layout.shdefaulttextcolorbool,"FontColor":vFontColor,"CustomTitles":layout.customtitlebool,"TitleAlign":layout.titlealign,"TitleColor":layout.titlesinglecolor.color,"TitleFontSize":layout.TitlesFontSize,"TitlePadding":layout.TitlesPadding};
-         		laySheet = {"shchangebgBool":layout.shchangebgBool,"shbgcolor1":vShBgColor1,"shbgcolor2":vShBgColor2,"shbgdegreedir":vShBgDegreeDir,"shbgimg":vShBgImg,"shbgimgopacity":layout.shbgimgopacity,"shbgimgdir":vShBgImgDir,"shbgimgsize":vShBgImgSize,"sheettitle":layout.sheettitle,"sheettitlecolbool":layout.sheettitlecolbool,"sheettitlecolor":layout.sheettitlecolor.color,"sheettitleimgbool":layout.sheettitleimgbool,"sheettitleimg":layout.sheettitleimg,"shbgleftpanelbool":layout.shbgleftpanelbool,"shbgleftpanelwidth":layout.shbgleftpanelwidth,"shbgrightpanelbool":layout.shbgrightpanelbool,"shbgrightpanelwidth":layout.shbgrightpanelwidth,"shbgleftpanelcolor":layout.shbgleftpanelcolor.color,"shbgrightpanelcolor":layout.shbgrightpanelcolor.color};
+         		laySheet = {"shchangebgBool":layout.shchangebgBool,"shbgdegreebool":layout.shbgdegreebool,"shbgcolor1":vShBgColor1,"shbgcolor2":vShBgColor2,"shbgdegreedir":vShBgDegreeDir,"shbgimg":vShBgImg,"shbgimgopacity":layout.shbgimgopacity,"shbgimgdir":vShBgImgDir,"shbgimgsize":vShBgImgSize,"sheettitle":layout.sheettitle,"sheettitlecolbool":layout.sheettitlecolbool,"sheettitlecolor":layout.sheettitlecolor.color,"sheettitleimgbool":layout.sheettitleimgbool,"sheettitleimg":layout.sheettitleimg,"shbgleftpanelbool":layout.shbgleftpanelbool,"shbgleftpanelwidth":layout.shbgleftpanelwidth,"shbgrightpanelbool":layout.shbgrightpanelbool,"shbgrightpanelwidth":layout.shbgrightpanelwidth,"shbgleftpanelcolor":layout.shbgleftpanelcolor.color,"shbgrightpanelcolor":layout.shbgrightpanelcolor.color,"shbgshadowbool":layout.shbgshadowbool,"shbgshadowsize":layout.shbgshadowsize,"shbgpadding":layout.shbgpadding,"shbgpaddingcolor":layout.shbgpaddingcolor.color};
          		layQV = {"QVBgColor":QVBgColor,"QVBorder":QVBorder}				
 				layFP = {"FPBool":layout.filterpanebool,"FPSettings":vFPSettings,"FPBackground":vFPBackground,"FPFontSize2":vFPFontSize2,"FPFontFamily":vFPFontFamily,"FPTitleSettings":vFPTitleSettings,"FPSettingsHead":vFPSettingsHead,"FPSettingsExt":vFPSettingsExt,"FPBorderBool":layout.filterborderbool,"FPIconBool":layout.filtericonbool,"FPIcon":layout.filtericon, "FPStateLine":vFPStateCountBar};
 				layTXT = {"XSBool":layout.txtxsbool,"XSFamily":layout.txtxlfontfamily,"XSSize":layout.txtxsfontsize,"SBool":layout.txtsbool,"SFamily":layout.txtsfontfamily,"SSize":layout.txtsfontsize,"MBool":layout.txtmbool,"MFamily":layout.txtmfontfamily,"MSize":layout.txtmfontsize,"LBool":layout.txtlbool,"LFamily":layout.txtlfontfamily,"LSize":layout.txtlfontsize,"XLBool":layout.txtxlbool,"XLFamily":layout.txtxlfontfamily,"XLSize":layout.txtxlfontsize,"XLGrow":layout.txtxlgrowbool};
