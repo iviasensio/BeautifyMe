@@ -23,7 +23,7 @@ This extension can help to customize:
 ![BeautifyMe3](https://user-images.githubusercontent.com/11334576/153909415-9ec64b00-5b4f-4d60-9467-a8dcc465dee1.png)
 
 ### Version 2.2
-June 2023
+29 June 2023
 
 1. Assisted generation of CSS styles
 

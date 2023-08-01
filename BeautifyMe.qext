@@ -4,7 +4,9 @@
 	"preview": "BeautifyMe.png",
 	"type" : "visualization",
 	"icon" : "palette",
-	"version": "2.0",
+	"version": "2.2",
+	"repository": "https://github.com/iviasensio/BeautifyMe",
+	"license": "MIT",
 	"bundle": {
         "id": "qlik-smart-bundle",
         "name": "Qlik Smart bundle",

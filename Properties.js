@@ -2497,6 +2497,10 @@ define(["qlik", "ng!$q","./js/util"], function(qlik, ng, utils) {
                             paragraph2: {
                                 label: "BeautifyMe is an extension created by Ivan Felipe, offered under MIT License.",
                                 component: "text"
+                            },
+                            paragraph3: {
+                                label: "Last update 29-jun-2023.",
+                                component: "text"
                             }
                         }
                     }
